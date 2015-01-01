@@ -12,7 +12,7 @@ describe('node-skyscanner', function() {
 
   describe('getBase', function() {
     it('should have the correct default base URL', function() {
-      expect(s.getBase()).to.equal(Skyscanner.BASE + 'US/USD/en-us/');
+      expect(s.getBase()).to.equal(Skyscanner.BROWSE + 'US/USD/en-us/');
     });
     it('should properly set options', function() {
       var sp = new Skyscanner({
@@ -20,7 +20,7 @@ describe('node-skyscanner', function() {
         currency: 'EUR',
         language: 'en-gb'
       });
-      expect(sp.getBase()).to.equal(Skyscanner.BASE + 'CA/EUR/en-gb/');
+      expect(sp.getBase()).to.equal(Skyscanner.BROWSE + 'CA/EUR/en-gb/');
     });
   });
 
@@ -87,6 +87,35 @@ describe('node-skyscanner', function() {
       s.calendar('US', 'LOLLAND').catch(function(err) {
         expect(err).to.not.be.undefined;
         expect(err.Content).to.match(/LOLLAND is not a recognised/);
+        done();
+      });
+    });
+  });
+
+  describe('autosuggest', function() {
+    it('should suggest airports', function(done) {
+      s.autosuggest('DFW').then(function(res) {
+        expect(_.find(res, function(item) {
+          return item.PlaceId === 'DFW';
+        }).PlaceName).to.match(/Dallas/);
+        done();
+      });
+    });
+    it('should default English', function(done) {
+      s.autosuggest('POS').then(function(res) {
+        expect(_.find(res, function(item) {
+          return item.PlaceId === 'POS'
+        }).CountryName).to.match(/Trinidad and Tobago/);
+        done();
+      });
+    });
+    it('should change language', function(done) {
+      s.autosuggest('POS', {
+        language: 'ES'
+      }).then(function(res) {
+        expect(_.find(res, function(item) {
+          return item.PlaceId === 'POS'
+        }).CountryName).to.match(/Trinidad y Tobago/);
         done();
       });
     });

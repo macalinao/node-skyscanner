@@ -4,7 +4,8 @@ var P = require('bluebird');
 var R = require('superagent');
 require('superagent-bluebird-promise');
 
-var BASE = 'http://www.skyscanner.com/dataservices/browse/v1.1/';
+var BASE = 'http://www.skyscanner.com/dataservices/';
+var BROWSE = BASE + 'browse/v1.1/';
 
 function Skyscanner(opts) {
   opts = opts || {};
@@ -13,13 +14,13 @@ function Skyscanner(opts) {
   this.language = opts.language || 'en-us';
 }
 
-Skyscanner.BASE = BASE;
+Skyscanner.BROWSE = BROWSE;
 
 /**
  * Gets the base URL of the API.
  */
 Skyscanner.prototype.getBase = function() {
-  return BASE + this.country + '/' + this.currency + '/' + this.language + '/';
+  return BROWSE + this.country + '/' + this.currency + '/' + this.language + '/';
 };
 
 /**
@@ -64,5 +65,20 @@ Skyscanner.prototype.calendar = function(from, to, opts) {
   });
 };
 
+/**
+ * Autosuggest
+ */
+Skyscanner.prototype.autosuggest = function(query, opts) {
+  opts = opts || {};
+  var language = opts.language || 'EN';
+  var url = BASE + 'geo/v1.0/autosuggest/' + this.country + '/' + language + '/' + query;
+  return new P(function(resolve, reject) {
+    return R.get(url).promise().then(function(res) {
+      return resolve(res.body);
+    }).catch(function(err) {
+      return reject(err);
+    });
+  });
+};
 
 module.exports = Skyscanner;
