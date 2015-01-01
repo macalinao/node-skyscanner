@@ -1,6 +1,6 @@
 'use strict';
 
-require('bluebird');
+var P = require('bluebird');
 var R = require('superagent');
 require('superagent-bluebird-promise');
 
@@ -25,11 +25,44 @@ Skyscanner.prototype.getBase = function() {
 /**
  * Gets destinations.
  */
-Skyscanner.prototype.destinations = function(from, to) {
-  var url = this.getBase() + 'destinations/' + from + '/' + to + '/anytime/anytime/?includequotedate=true';
-  return R.get(url).promise().then(function(res) {
-    return res.body;
+Skyscanner.prototype.destinations = function(from, to, opts) {
+  opts = opts || {};
+  var departureDate = opts.departureDate || 'anytime';
+  var returnDate = opts.returnDate || 'anytime';
+  var predicate = [
+    'destinations',
+    from, to, departureDate, returnDate
+  ].join('/');
+  var url = this.getBase() + predicate + '/?includequotedate=true';
+  return new P(function(resolve, reject) {
+    return R.get(url).promise().then(function(res) {
+      return resolve(res.body);
+    }).catch(function(err) {
+      return reject(JSON.parse(err.error.text).DebugItems[0]);
+    });
   });
 };
+
+/**
+ * Gets flights for a specific date range.
+ */
+Skyscanner.prototype.calendar = function(from, to, opts) {
+  opts = opts || {};
+  var departureDate = opts.departureDate || 'anytime';
+  var returnDate = opts.returnDate || 'anytime';
+  var predicate = [
+    'calendar',
+    from, to, departureDate, returnDate
+  ].join('/');
+  var url = this.getBase() + predicate + '/?includequotedate=true';
+  return new P(function(resolve, reject) {
+    return R.get(url).promise().then(function(res) {
+      return resolve(res.body);
+    }).catch(function(err) {
+      return reject(JSON.parse(err.error.text).DebugItems[0]);
+    });
+  });
+};
+
 
 module.exports = Skyscanner;
