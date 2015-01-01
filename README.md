@@ -33,7 +33,7 @@ MIT © [Ian Macalinao](http://ian.pw)
 
 [npm-url]: https://npmjs.org/package/skyscanner
 [npm-image]: https://badge.fury.io/js/skyscanner.svg
-[travis-url]: https://travis-ci.org/simplyianm/skyscanner
-[travis-image]: https://travis-ci.org/simplyianm/skyscanner.svg?branch=master
-[daviddm-url]: https://david-dm.org/simplyianm/skyscanner.svg?theme=shields.io
-[daviddm-image]: https://david-dm.org/simplyianm/skyscanner
+[travis-url]: https://travis-ci.org/simplyianm/node-skyscanner
+[travis-image]: https://travis-ci.org/simplyianm/node-skyscanner.svg?branch=master
+[daviddm-url]: https://david-dm.org/simplyianm/node-skyscanner.svg?theme=shields.io
+[daviddm-image]: https://david-dm.org/simplyianm/node-skyscanner
