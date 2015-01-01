@@ -1,6 +1,6 @@
 {
   "name": "skyscanner",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Skyscanner API for Node.js",
   "homepage": "http://ian.pw",
   "author": {

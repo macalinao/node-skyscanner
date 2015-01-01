@@ -1,4 +1,5 @@
 /*global describe, it */
+/*jshint -W030 */
 'use strict';
 
 var expect = require('chai').expect;
@@ -104,7 +105,7 @@ describe('node-skyscanner', function() {
     it('should default English', function(done) {
       s.autosuggest('POS').then(function(res) {
         expect(_.find(res, function(item) {
-          return item.PlaceId === 'POS'
+          return item.PlaceId === 'POS';
         }).CountryName).to.match(/Trinidad and Tobago/);
         done();
       });
@@ -114,7 +115,7 @@ describe('node-skyscanner', function() {
         language: 'ES'
       }).then(function(res) {
         expect(_.find(res, function(item) {
-          return item.PlaceId === 'POS'
+          return item.PlaceId === 'POS';
         }).CountryName).to.match(/Trinidad y Tobago/);
         done();
       });
