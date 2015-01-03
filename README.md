@@ -7,7 +7,7 @@ Skyscanner's public API for Node.js.
 ## Install
 
 ```sh
-$ npm install --save skyscanner
+$ npm install skyscanner
 ```
 
 
