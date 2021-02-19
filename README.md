@@ -10,16 +10,15 @@ Skyscanner's public API for Node.js.
 $ npm install skyscanner
 ```
 
-
 ## Usage
 
 ```js
-var Skyscanner = require('skyscanner');
+var Skyscanner = require("skyscanner");
 var s = new Skyscanner();
 
-s.destinations('US', 'US');
-s.calendar('DFWA', 'LHR');
-s.autosuggest('dallas fort worth');
+s.destinations("US", "US");
+s.calendar("DFWA", "LHR");
+s.autosuggest("dallas fort worth");
 ```
 
 See the tests for more info.
@@ -31,7 +30,6 @@ Run tests with `grunt`.
 ## License
 
 MIT © [Ian Macalinao](http://ian.pw)
-
 
 [npm-url]: https://npmjs.org/package/skyscanner
 [npm-image]: https://badge.fury.io/js/skyscanner.svg
